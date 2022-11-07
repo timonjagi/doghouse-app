@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="preference.currentTab"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="bold">{{ post?.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="btn-share" (click)="onShare()" [disabled]="!post">
+        <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #container>
+
+  <web-social-share style="--web-social-share-action-sheet-group-background: var(--ion-color-light-tint);" (closed)="webSocialShare.onClosed()" [show]="webSocialShare.show" [share]="webSocialShare.share">
+    <ion-icon class="block" name="logo-facebook" slot="facebook"
+      style="color:var(--ion-color-fb);width:36px;height:36px;">
+    </ion-icon>
+    <ion-icon class="block" name="logo-twitter" slot="twitter"
+      style="color:var(--ion-color-twitter);width:36px;height:36px;">
+    </ion-icon>
+    <ion-icon class="block" name="logo-whatsapp" slot="whatsapp"
+      style="color:var(--ion-color-whatsapp);width:36px;height:36px;">
+    </ion-icon>
+    <ion-icon class="block" name="copy-outline" slot="copy"
+      style="color: var(--ion-color-medium);width:36px;height:36px;">
+    </ion-icon>
+  </web-social-share>
+
+  <ion-grid class="ion-no-padding" fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-xs="12" size-lg="8">
+
+        <empty-view *ngIf="isEmptyViewVisible" icon="alert-circle-outline" [text]="'EMPTY_DATA' | translate">
+        </empty-view>
+      
+        <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+        </empty-view>
+
+        <div *ngIf="isLoadingViewVisible">
+          <ion-item style="--background: transparent" lines="none">
+            <ion-label>
+              <ion-skeleton-text animated style="width: 100%; height: 250px; margin-bottom: 30px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%; height: 5px; margin-bottom: 15px;" *ngFor="let item of [].constructor(30)">
+              </ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+        </div>
+
+        <div *ngIf="isContentViewVisible">
+          <div class="bg-img" [offset]="100" defaultImage="./assets/img/placeholder.png"
+            [lazyLoad]="post?.image?.url()">
+          </div>
+
+          <div class="margin-top ion-padding">
+            <h3 class="bold">{{ post?.title }}</h3>
+            <ion-text color="medium">
+              <p class="bold">{{ post?.body }}</p>
+            </ion-text>
+
+            <ion-button *ngIf="post.place" strong color="secondary"
+              [routerLink]="['/places/' + post.place.id + '/' + post.place.slug]">
+              {{ 'VIEW_PLACE' | translate }}
+            </ion-button>
+
+            <div class="html-content" *ngIf="htmlBody" (click)="onContentTouched($event)" [innerHTML]="htmlBody">
+            </div>
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+
+</ion-content>

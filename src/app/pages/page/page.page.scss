@@ -1,0 +1,17 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-grid {
+  padding: 0;
+}
+
+@media only screen and (min-width: 992px) {
+  ion-content {
+    --background: var(--ion-color-light);
+  }
+
+  ion-grid {
+    background: var(--ion-color-white-tint);
+  }
+}

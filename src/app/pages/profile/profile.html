@@ -1,0 +1,101 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary" fixed>
+    <ion-title class="bold">{{ 'PROFILE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollEvents]="true">
+
+  <ion-grid fixed>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-no-padding" size-xs="12" size-sm size-md size-lg="8">
+
+        <div>
+
+          <section class="heading">
+
+            <ion-avatar>
+              <img src-fallback="./assets/img/avatar.png" [src]="user?.photo?.url()" />
+            </ion-avatar>
+
+            <h5 class="bold" *ngIf="user?.name">{{ user?.name }}</h5>
+            <h3 *ngIf="user?.isAnonymous()">
+              {{ 'GUEST' | translate }}
+            </h3>
+
+            <ion-button style="text-transform: none;" strong class="ion-margin-top" expand="block" color="secondary"
+              *ngIf="!user || (user && user?.isAnonymous())" (click)="openSignInModal()">
+              {{ 'CREATE_ACCOUNT_OR_LOGIN' | translate }}
+            </ion-button>
+
+          </section>
+
+          <ion-list lines="none" class="ion-no-padding ion-no-margin">
+            <ion-item class="link" color="white" (click)="goTo('places')">
+              <ion-icon name="location" slot="start" color="medium"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'MY_PLACES' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="goTo('likes')">
+              <ion-icon name="heart" slot="start" color="danger"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'LIKES' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="goTo('reviews')" *ngIf="isReviewsEnabled">
+              <ion-icon name="star" slot="start" color="warning"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'REVIEWS' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="onPresentChangePasswordModal()" *ngIf="user && user.isLoggedInViaPassword()">
+              <ion-icon name="lock-closed" slot="start" color="medium"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'CHANGE_PASSWORD' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="onPresentEditModal()" *ngIf="user && !user.isAnonymous()">
+              <ion-icon name="create" slot="start" color="medium"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'EDIT_PROFILE' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="onPresentSettingsModal()">
+              <ion-icon name="cog" slot="start" color="medium"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'SETTINGS' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="navigateToRelative('./help')">
+              <ion-icon name="help-buoy" slot="start" color="medium"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'HELP' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+            <ion-item class="link" color="white" (click)="onLogout()" *ngIf="user && !user.isAnonymous()">
+              <ion-icon name="log-out" slot="start" color="medium"></ion-icon>
+              <ion-label color="dark">
+                <p class="bold text-slarge">{{ 'LOGOUT' | translate }}</p>
+              </ion-label>
+              <ion-icon name="chevron-forward" slot="end" color="dark"></ion-icon>
+            </ion-item>
+          </ion-list>
+
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+  
+</ion-content>

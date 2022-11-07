@@ -1,0 +1,18 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-toolbar.ios {
+  --border-width: 0;
+}
+
+ion-item.item {
+  --ion-color-base: var(--ion-color-white-tint);
+  --border-color: var(--ion-color-light-shade);
+  --border-width: 1px;
+  --border-style: solid;
+}
+
+ion-checkbox {
+  margin-right: 10px;
+}

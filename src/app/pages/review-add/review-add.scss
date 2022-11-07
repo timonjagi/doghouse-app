@@ -1,0 +1,13 @@
+ion-content {
+  --background: var(--ion-color-light);
+  --padding-top: 60px;
+}
+
+ion-item.item {
+  --ion-color-base: var(--ion-color-white-tint);
+  --border-color: var(--ion-color-light-shade);
+  --border-width: 1px;
+  --border-style: solid;
+  --border-radius: 4px;
+  margin-top: 40px;
+}

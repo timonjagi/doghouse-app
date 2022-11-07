@@ -1,0 +1,12 @@
+<ion-app>
+  <div *ngIf="isLoadingViewVisible" class="flex full-height ion-align-items-center ion-justify-content-center">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+    <ion-button (click)="loadUser()">
+      {{ 'TRY_AGAIN' | translate }}
+    </ion-button>
+  </empty-view>
+  <ion-router-outlet *ngIf="isContentViewVisible"></ion-router-outlet>
+</ion-app>

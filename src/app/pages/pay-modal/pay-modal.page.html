@@ -1,0 +1,53 @@
+<ion-content>
+
+  <div *ngIf="isLoadingViewVisible" class="flex full-height ion-align-items-center ion-justify-content-center">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+    <ion-button (click)="loadPaymentConfig()">
+      {{ 'TRY_AGAIN' | translate }}
+    </ion-button>
+  </empty-view>
+
+  <div *ngIf="isContentViewVisible">
+
+    <div class="ion-text-center header">
+      <p class="bold text-large ion-no-margin">
+        <ion-text class="medium">
+          {{ userPackage?.package?.name }}
+        </ion-text>
+      </p>
+      <p class="bold text-xlarge ion-no-margin">
+        <ion-text>
+          {{ userPackage?.package?.finalPrice | currencyGlobal }}
+        </ion-text>
+      </p>
+    </div>
+
+    <div class="ion-padding">
+
+      <div>
+        <ngx-stripe-payment [stripe]="stripeInstance" [elementsOptions]="elementsOptions">
+        </ngx-stripe-payment>
+      </div>
+
+      <ion-row class="ion-justify-content-center" style="margin-top: 20px;">
+        <ion-col size-xs="10" size-md="8">
+          <ion-button class="ion-margin-vertical" strong size="large" color="secondary" expand="block"
+            (click)="onSubmit()" [disabled]="isSaving">
+            <ion-spinner name="crescent" *ngIf="isSaving"></ion-spinner>
+            <span *ngIf="!isSaving">{{ 'PAY_NOW' | translate }}</span>
+          </ion-button>
+
+          <ion-button class="ion-margin-top" strong size="large" expand="block" fill="clear" color="dark"
+            (click)="onDismiss()">
+            {{ 'CANCEL' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,232 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <div>
+      <ion-searchbar disabled="true" searchIcon="navigate" showClearButton="never" class="text-small" mode="ios"
+        [(ngModel)]="params.address" (click)="onPresentLocationSelectModal()"
+        [placeholder]="'ENTER_LOCATION' | translate" inputmode="search" type="search"></ion-searchbar>
+    </div>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content [fullscreen]="true" [scrollEvents]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="onReload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid fixed>
+
+    <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+    </empty-view>
+
+    <section class="ion-padding" *ngIf="isLoadingViewVisible">
+
+      <ion-row>
+        <ion-col>
+          <ion-skeleton-text animated style="border-radius: 10px; width: 100%; height: 250px;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-vertical">
+        <ion-col size-xs="4" size-md="3" size-lg="2" *ngFor="let item of [].constructor(6)">
+          <ion-skeleton-text animated style="border-radius: 10px; width: 100%; height: 85px;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-xs="6" size-md="4" size-lg="3" *ngFor="let item of [].constructor(24)">
+          <ion-skeleton-text animated style="border-radius: 10px; width: 100%; height: 150px;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+
+    </section>
+
+    <section *ngIf="isContentViewVisible">
+
+      <!-- Top Slide List -->
+
+      <div *ngIf="slidesTop?.length">
+        <swiper (swiper)="onSwiperTopInitialized($event)" [config]="slideTopOpts">
+          <ng-template swiperSlide *ngFor="let slide of slidesTop">
+            <div class="ion-activatable full-width" (click)="onSlideTouched(slide)">
+              <div class="slide-img" [style.background-image]="'url(' + slide.image?._url + ')'">
+              </div>
+              <ion-ripple-effect type="bounded"></ion-ripple-effect>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+
+      <div>
+
+        <div class="ion-margin-vertical ion-padding-horizontal">
+          <ion-item class="text-medium" lines="none" color="white"
+            style="--ion-color-base: var(--ion-color-white-tint)">
+            <ion-input #txtSearchInput (keyup)="onSubmitSearch($event)" enterkeyhint="search" type="text"
+              [placeholder]="'SEARCH_HOME_PLACEHOLDER' | translate">
+            </ion-input>
+            <ion-button class="btn-search ion-no-margin" fill="clear" color="primary" slot="end"
+              (click)="onSubmitSearch($event)">
+              <ion-icon slot="icon-only" color="medium" name="search"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+
+        <!-- Category List -->
+
+        <ion-row class="ion-align-items-center ion-padding-horizontal">
+          <ion-col size="6" class="ion-text-start">
+            <ion-text color="medium">
+              <span class="text-normal padding-small">
+                {{ 'CATEGORIES' | translate }}
+              </span>
+            </ion-text>
+          </ion-col>
+          <ion-col size="6" class="ion-text-end">
+            <ion-button style="--border-radius: 16px" strong size="small" color="secondary"
+              [routerLink]="['./categories']">
+              <span class="link text-small" style="text-transform: none;">
+                {{ 'VIEW_ALL' | translate }}
+              </span>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <div class="padding-horizontal-medium">
+          <ion-row>
+            <ion-col class="column-center" size-xs="3" size-sm="3" size-md="2" *ngFor="let category of categories">
+              <ion-card button class="no-shadow card-category transparent" [routerLink]="['./places']"
+                [queryParams]="{ cat: category.id }">
+                <img [offset]="100" defaultImage="./assets/img/placeholder.png" [lazyLoad]="category.image?.url()"
+                  [alt]="category.title" />
+                <ion-card-content class="ion-text-center">
+                  <p class="text-small bold link multi-ellipsis">{{ category.title }}</p>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- Featured Places -->
+
+        <section *ngIf="featuredPlaces.length">
+
+          <ion-row class="ion-align-items-center ion-padding-horizontal">
+            <ion-col size="6" class="ion-text-start">
+              <ion-text color="medium">
+                <span class="text-normal padding-small">
+                  {{ 'FEATURED' | translate }}
+                </span>
+              </ion-text>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              <ion-button style="--border-radius: 16px" strong size="small" color="secondary"
+                [queryParams]="{ featured: '1' }" [routerLink]="['./places']">
+                <span class="link text-small" style="text-transform: none;">
+                  {{ 'VIEW_ALL' | translate }}
+                </span>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+          <div class="ion-margin-bottom">
+            <ion-row class="ion-padding-start scrollable">
+              <ion-col size-xs="5" size-sm="4" size-md="3" *ngFor="let place of featuredPlaces">
+                <app-place-card color="white" [routerLink]="['./places/' + place.id + '/' + place.slug]" [place]="place"
+                  [extraParams]="{ location: location, unit: preference.unit }">
+                </app-place-card>
+              </ion-col>
+            </ion-row>
+          </div>
+
+        </section>
+
+        <!-- New Places -->
+
+        <section *ngIf="newPlaces.length">
+
+          <ion-row class="ion-align-items-center ion-padding-horizontal">
+            <ion-col size="6" class="ion-text-start">
+              <ion-text color="medium">
+                <span class="text-normal padding-small">
+                  {{ 'NEW' | translate }}
+                </span>
+              </ion-text>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              <ion-button style="--border-radius: 16px" strong size="small" color="secondary"
+                [routerLink]="['./places']">
+                <span class="link text-small" style="text-transform: none;">
+                  {{ 'VIEW_ALL' | translate }}
+                </span>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+          <div class="ion-margin-bottom">
+            <ion-row class="ion-padding-start scrollable">
+              <ion-col size-xs="5" size-sm="4" size-md="3" *ngFor="let place of newPlaces">
+                <app-place-card color="white" [routerLink]="['./places/' + place.id + '/' + place.slug]" [place]="place"
+                  [extraParams]="{ location: location, unit: preference.unit }">
+                </app-place-card>
+              </ion-col>
+            </ion-row>
+          </div>
+
+        </section>
+
+        <!-- Nearby Places -->
+
+        <section *ngIf="nearbyPlaces.length">
+
+          <ion-row class="ion-align-items-center ion-padding-horizontal">
+            <ion-col size="6" class="ion-text-start">
+              <ion-text color="medium">
+                <span class="text-normal padding-small">
+                  {{ 'NEARBY' | translate }}
+                </span>
+              </ion-text>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              <ion-button style="--border-radius: 16px" strong size="small" color="secondary"
+                [queryParams]="{ nearby: '1' }" [routerLink]="['./places']">
+                <span class="link text-small" style="text-transform: none;">
+                  {{ 'VIEW_ALL' | translate }}
+                </span>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+          <div class="ion-margin-bottom">
+            <ion-row class="ion-padding-start scrollable">
+              <ion-col size-xs="5" size-sm="4" size-md="3" *ngFor="let place of nearbyPlaces">
+                <app-place-card color="white" [routerLink]="['./places/' + place.id + '/' + place.slug]" [place]="place"
+                  [extraParams]="{ location: location, unit: preference.unit }">
+                </app-place-card>
+              </ion-col>
+            </ion-row>
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+    <div class="ion-margin-vertical" *ngIf="slidesBottom?.length">
+      <swiper (swiper)="onSwiperBottomInitialized($event)" [config]="slideBottomOpts">
+        <ng-template swiperSlide *ngFor="let slide of slidesBottom">
+          <div class="ion-activatable full-width" (click)="onSlideTouched(slide)">
+            <div class="slide-img" style="height: 100px;" [style.background-image]="'url(' + slide.image?._url + ')'">
+            </div>
+            <ion-ripple-effect type="bounded"></ion-ripple-effect>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+
+  </ion-grid>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+
+</ion-content>

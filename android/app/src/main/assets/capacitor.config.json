@@ -1,0 +1,30 @@
+{
+	"appId": "com.quanlabs.nearme5",
+	"appName": "Nearme",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchAutoHide": false,
+			"backgroundColor": "#ffffffff",
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP",
+			"showSpinner": false,
+			"androidSpinnerStyle": "large",
+			"iosSpinnerStyle": "small",
+			"spinnerColor": "#999999",
+			"splashFullScreen": true,
+			"splashImmersive": true
+		},
+		"GoogleAuth": {
+			"scopes": [
+				"profile",
+				"email"
+			],
+			"iosClientId": "30318751485-eqaaa7rd6bivfjflia64jb9qd1a489ee.apps.googleusercontent.com",
+			"androidClientId": "30318751485-9uqnbnad33ju4t9ei2t9n6bhl44036re.apps.googleusercontent.com",
+			"serverClientId": "30318751485-qqf26fbrr1diarvdipaqjh7mh2re28gj.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
+		}
+	}
+}

@@ -1,0 +1,53 @@
+.box {
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--ion-color-white-tint);
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  height: 110px;
+  justify-content: center;
+  position: relative;
+  width: 110px;
+  margin: 0 10px;
+  overflow: hidden;
+
+  .btn-close-wrapper {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    ion-button {
+      height: auto;
+      --padding-start: 0;
+      --padding-end: 0;
+    }
+  }
+
+  .center {
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    ion-icon {
+      font-size: 48px;
+    }
+  }
+
+  .bottom {
+    background-color: rgba(var(--ion-color-dark-rgb), 0.2);
+    color: var(--ion-color-dark-contrast);
+    bottom: 0;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+}

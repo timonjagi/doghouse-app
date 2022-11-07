@@ -1,0 +1,32 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-grid {
+  padding: 0;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item.item {
+  --ion-color-base: var(--ion-color-white-tint);
+}
+
+ion-avatar {
+  img {
+    background: var(--ion-color-secondary);
+  }
+}
+
+ul {
+  margin: 4px 0;
+  padding: 0px;
+
+  &.rating li {
+    padding: 5px 0 !important;
+    background: none;
+    color: var(--ion-color-primary);
+  }
+}

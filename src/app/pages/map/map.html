@@ -1,0 +1,128 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="preference.currentTab"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar class="text-small" mode="ios" [placeholder]="'ENTER_ADDRESS' | translate"
+      (ionInput)="onSearchAddress($event)" (ionCancel)="onClearSearchAddress()" (ionClear)="onClearSearchAddress()">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="autocomplete" slot="fixed">
+    <ion-grid fixed *ngIf="suggestions.length">
+      <ion-list lines="none" class="shadow" [@staggerIn]="suggestions.length">
+        <ion-item class="hover" button detail="false" *ngFor="let suggestion of suggestions"
+          (click)="onSuggestionTouched(suggestion)">
+          <ion-label>
+            <ion-text color="dark">
+              <span class="link bold text-medium">
+                {{ suggestion.description }}
+              </span>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+  </div>
+
+  <ion-grid class="fullscreen" fixed>
+    <ion-row class="fullscreen ion-justify-content-center">
+      <ion-col class="fullscreen hide-xs-up show-lg-up" size="6">
+
+        <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+        </empty-view>
+
+        <empty-view *ngIf="isEmptyViewVisible" icon="map" [text]="'EMPTY_PLACES' | translate">
+        </empty-view>
+
+        <div class="flex-center" *ngIf="isLoadingViewVisible">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+
+        <ion-list class="scroll" [@staggerIn]="places.length" *ngIf="places.length">
+          <ion-item button lines="none" detail="false" *ngFor="let place of places" (mouseenter)="onPlaceHover(place)"
+            [routerLink]="['../' + place.id + '/' + place.slug]">
+            <ion-thumbnail slot="start" *ngIf="place.imageThumb">
+              <img [alt]="place.title" [src]="place.imageThumb?.url()" src-fallback="./assets/img/placeholder.png" />
+            </ion-thumbnail>
+            <ion-label>
+              <h2 class="bold no-margin ellipsis link">
+                <ion-text color="dark">
+                  {{ place.title }}
+                </ion-text>
+              </h2>
+              <ion-text color="medium">
+                <p class="no-margin">
+                  {{ place.categories.join(' &bull; ') }}
+                </p>
+                <p class="no-margin" *ngIf="place.priceRange">
+                  <span>{{ place.priceRange }}</span>
+                </p>
+              </ion-text>
+              <bar-rating class="rating" *ngIf="place.ratingAvg" [rate]="place.ratingAvg" [readOnly]="true" [max]="5"
+                [theme]="'stars'">
+              </bar-rating>
+            </ion-label>
+
+            <div slot="end">
+              <ion-text color="medium">
+                <span class="bold text-medium">
+                  {{ place.distance(location, preference.unit) }}
+                </span>
+              </ion-text>
+            </div>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col size-xs="12" size-lg="6">
+        <div class="full-width full-height" *ngIf="mapInitialized">
+          <google-map width="100%" height="100%" (mapClick)="onClearSearchAddress()"
+            (mapDragstart)="onClearSearchAddress()" (mapMousemove)="onClearSearchAddress()" [options]="mapOptions">
+          </google-map>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<div class="cupertino-pane hide-lg-up">
+  <ion-list overflow-y>
+    <ion-item style="--background:transparent" button lines="none" detail="false" *ngFor="let place of places"
+      (click)="showInfoWindow(place, $event)">
+      <ion-thumbnail slot="start" *ngIf="place.imageThumb">
+        <img [src]="place.imageThumb?._url" src-fallback="./assets/img/placeholder.png" />
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+
+        <h2 class="bold no-margin multi-ellipsis link">
+          <ion-text color="dark">
+            {{ place.title }}
+          </ion-text>
+        </h2>
+        <ion-text color="medium">
+          <p class="bold no-margin">
+            {{ place.categories.join(' &bull; ') }}
+          </p>
+          <p class="no-margin" *ngIf="place.priceRange">
+            <span>{{ place.priceRange }}</span>
+          </p>
+        </ion-text>
+        <bar-rating class="rating" *ngIf="place.ratingAvg" [rate]="place.rating" [readOnly]="true" [max]="5"
+          [theme]="'stars'"></bar-rating>
+      </ion-label>
+
+      <div slot="end">
+        <ion-text color="medium">
+          <span class="bold text-medium">
+            {{ place.distance(location, preference.unit) }}
+          </span>
+        </ion-text>
+      </div>
+    </ion-item>
+
+  </ion-list>
+</div>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="bold">{{ 'STATISTICS' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <img class="ion-margin-vertical" [src]="place?.imageThumb?.url()" width="100"
+    src-fallback="assets/img/placeholder.png" />
+
+  <ion-row>
+    <ion-col *ngFor="let filter of filters">
+      <ion-button strong shape="round" expand="block" color="medium"
+        [fill]="selectedFilter.id === filter.id ? 'solid' : 'clear'"
+        (click)="onFilterButtonTouched(filter)">
+        {{ filter.id.toUpperCase() | translate }}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-margin-vertical">
+    <ion-col size="6">
+      <div>
+        <ion-icon class="text-large" name="heart" color="medium"></ion-icon>
+      </div>
+      <ion-text color="medium">
+        <h3 class="bold">{{ statistics?.likes }}</h3>
+      </ion-text>
+      
+    </ion-col>
+    <ion-col size="6">
+      <div>
+        <ion-icon class="text-large" name="call" color="medium"></ion-icon>
+      </div>
+      <ion-text color="medium">
+        <h3 class="bold">{{ statistics?.calls }}</h3>
+      </ion-text>
+    </ion-col>
+  </ion-row>
+  <div class="divider"></div>
+  <div class="ion-margin-vertical">
+    <div class="ion-text-start">
+      <ion-text color="dark">
+        <h2 class="text-medium bold">{{ 'INTERACTIONS' | translate }}</h2>
+      </ion-text>
+    </div>
+    <div class="ion-text-center">
+      <h5 class="bold text-xlarge">{{ statistics?.views }}</h5>
+      <ion-text color="medium">
+        <p class="bold">
+          {{ 'INTERACTIONS_TEXT' | translate }}
+        </p>
+      </ion-text>
+    </div>
+  </div>
+</ion-content>

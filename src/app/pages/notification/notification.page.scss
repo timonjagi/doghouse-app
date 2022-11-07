@@ -1,0 +1,35 @@
+ion-content {
+
+  .container-bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50vh;
+
+    .bg-img {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .card {
+    background: white;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    height: 50vh;
+    position: relative;
+    top: -30px;
+    z-index: 10;
+  }
+
+  ion-button {
+    text-transform: none;
+    max-width: 200px;
+    margin: 16px auto;
+  }
+}

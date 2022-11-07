@@ -1,0 +1,51 @@
+ion-card {
+  border-radius: 6px;
+  background-color: var(--ion-color-white-tint);
+
+  .bg-img {
+    background-size: cover;
+    background-position: center;
+    width: var(--image-width, 100%);
+    height: var(--image-height, 200px);
+    position: relative;
+
+    &.ng-lazyloaded::before {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    ion-badge {
+      font-size: 12px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      --padding-top: 6px;
+      --padding-bottom: 6px;
+      --padding-start: 16px;
+      --padding-end: 16px;
+    }
+
+    .rating {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+    }
+
+    ion-chip {
+      background: rgba(var(--ion-color-base-rgb), 0.9);
+      color: #222;
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+    }
+  }
+
+  ion-card-content {
+    padding: var(--content-padding, 8px) !important;
+  }
+}

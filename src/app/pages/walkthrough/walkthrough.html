@@ -1,0 +1,55 @@
+<ion-content>
+
+  <div class="ion-text-center ion-margin-top" *ngIf="isLoadingViewVisible">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+  </empty-view>
+
+  <empty-view *ngIf="isEmptyViewVisible" icon="alert-circle-outline" [text]="'EMPTY_SLIDES' | translate">
+  </empty-view>
+
+  <div class="full-height" *ngIf="isContentViewVisible">
+    <swiper (swiper)="setSwiperInstance($event)" [pagination]="true" (slideChangeTransitionStart)="onSlideDidChange()">
+      <ng-template swiperSlide *ngFor="let slide of slides">
+        <div class="slide">
+          <div class="img-wrapper">
+            <img class="slide-image" height="200" [offset]="100" [lazyLoad]="slide.image?._url" [alt]="slide.title"
+              defaultImage="./assets/img/placeholder.png" />
+          </div>
+          <div class="caption">
+            <div class="slide-title">
+              {{ slide.title }}
+            </div>
+            <div class="slide-text" [innerHTML]="slide.text">
+            </div>
+          </div>
+          <ion-button strong class="ion-margin-vertical" [disabled]="isRequestingLocation"
+            (click)="onRequestLocationPermission()"
+            *ngIf="slide.permission === 'location' && canRequestLocationPermission">
+            <ion-icon slot="start" name="navigate"></ion-icon>
+            {{ 'ENABLE_LOCATION' | translate }}
+          </ion-button>
+          <ion-button strong class="ion-margin-vertical" [disabled]="isRequestingPush"
+            (click)="onRequestPushPermission()" *ngIf="slide.permission === 'push' && canRequestPushPermission">
+            <ion-icon slot="start" name="notifications"></ion-icon>
+            {{ 'ENABLE_PUSH' | translate }}
+          </ion-button>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <div class="ion-text-center">
+      <ion-button strong style="--box-shadow: none" (click)="skip()">
+        <span *ngIf="isEnd">{{ 'CONTINUE' | translate }}</span>
+        <span *ngIf="!isEnd">{{ 'NEXT' | translate }}</span>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

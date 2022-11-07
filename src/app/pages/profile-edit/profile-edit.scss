@@ -1,0 +1,11 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-item.item {
+  --border-radius: 4px;
+  --ion-color-base: var(--ion-color-white-tint);
+  --border-color: var(--ion-color-light-shade);
+  --border-width: 1px;
+  --border-style: solid;
+}

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="preference.currentTab"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="bold">{{ page?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-xs="12" size-lg="8">
+
+        <empty-view *ngIf="isEmptyViewVisible" icon="alert" [text]="'EMPTY_DATA' | translate">
+        </empty-view>
+    
+        <empty-view *ngIf="isErrorViewVisible" icon="alert" [text]="'ERROR_NETWORK' | translate">
+        </empty-view>
+
+        <div *ngIf="isLoadingViewVisible">
+          <ion-item lines="none">
+            <ion-label>
+              <ion-skeleton-text animated style="width: 100%; height: 250px; margin-bottom: 20px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%; height: 10px; margin-bottom: 15px;" *ngFor="let item of [].constructor(20)">
+              </ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+        </div>
+
+        <div class="ion-padding" *ngIf="isContentViewVisible">
+
+          <div class="ion-margin-top">
+            <h3 class="bold">{{ page?.title }}</h3>
+            <div class="html-content" *ngIf="content" (click)="onContentTouched($event)" [innerHTML]="content">
+            </div>
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+
+</ion-content>

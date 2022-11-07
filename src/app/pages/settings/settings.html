@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="onDismiss()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="bold">{{ 'SETTINGS' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list no-lines>
+
+    <ion-item lines="none" class="ion-margin-vertical" color="white" *ngIf="isCapacitor">
+      <ion-label class="text-medium bold">{{ 'PUSH_NOTIFICATIONS' | translate }}</ion-label>
+      <ion-toggle color="secondary" (ionChange)="onChangeIsPushEnabled($event)" [(ngModel)]="preference.isPushEnabled">
+      </ion-toggle>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-vertical" color="white">
+      <ion-label class="text-medium bold">{{ 'DARK_MODE' | translate }}</ion-label>
+      <ion-toggle color="secondary" (ionChange)="onChangeDarkMode($event)" [(ngModel)]="preference.isDarkModeEnabled">
+      </ion-toggle>
+    </ion-item>
+
+    <ion-radio-group allowEmptySelection="false" [value]="preference.unit" (ionChange)="onChangeUnit($event)">
+      <ion-list-header>
+        <p class="bold">
+          {{ 'DISTANCE_UNIT' | translate }}
+        </p>
+      </ion-list-header>
+      <ion-item color="white">
+        <ion-label class="text-medium bold">Mi</ion-label>
+        <ion-radio value="mi" color="secondary"></ion-radio>
+      </ion-item>
+      <ion-item color="white">
+        <ion-label class="text-medium bold">Km</ion-label>
+        <ion-radio value="km" color="secondary"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-list>
+    <ion-radio-group allowEmptySelection="false" [value]="preference.lang">
+      <ion-list-header>
+        <p class="bold">{{ 'LANGUAGE' | translate }}</p>
+      </ion-list-header>
+      <ion-item color="white" (click)="onChangeLang('en')">
+        <ion-label class="text-medium bold">{{ 'ENGLISH' | translate }}</ion-label>
+        <ion-radio value="en" color="secondary"></ion-radio>
+      </ion-item>
+      <ion-item color="white" (click)="onChangeLang('es')">
+        <ion-label class="text-medium bold">{{ 'SPANISH' | translate }}</ion-label>
+        <ion-radio value="es" color="secondary"></ion-radio>
+      </ion-item>
+      <ion-item color="white" (click)="onChangeLang('ar')">
+        <ion-label class="text-medium bold">{{ 'ARABIC' | translate }}</ion-label>
+        <ion-radio value="ar" color="secondary"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <div class="ion-text-center ion-margin-top" *ngIf="canShowIntroButton">
+    <ion-button style="text-transform: none;" strong color="secondary" (click)="presentWalkthroughModal()">
+      {{ 'OPEN_WALKTHROUGH' | translate }}
+    </ion-button>
+  </div>
+</ion-content>

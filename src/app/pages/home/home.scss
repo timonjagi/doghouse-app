@@ -1,0 +1,97 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-grid {
+  padding: 0;
+}
+
+ion-searchbar {
+  padding: 0 8px !important;
+}
+
+app-place-card {
+  --image-height: 150px;
+  --content-padding: 8px;
+}
+
+.card-category {
+  margin: 0 4px;
+
+  img {
+    padding: 0 5px;
+  }
+}
+
+.scrollable {
+  app-place-card {
+    --image-width: 100%;
+    --image-height: 130px;
+
+    --content-padding: 6px;
+  }
+}
+
+ion-card {
+  ion-card-content {
+    padding: 4px;
+  }
+}
+
+.swiper {
+  .slide-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 200px;
+  }
+}
+
+ion-row.ion-nowrap {
+  overflow: hidden;
+}
+
+@media (min-width: 0px) and (max-width: 767px) {
+  .main-content {
+    padding: 0;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+
+  .text-small {
+    font-size: 14px !important;
+  }
+
+  .swiper {
+    .slide-img {
+      height: 350px;
+    }
+  }
+
+  .card-category {
+    img {
+      padding: 0 16px;
+    }
+  }
+
+  .scrollable {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: normal;
+    flex-wrap: wrap;
+
+    app-place-card {
+      display: block;
+      margin: 0;
+      width: 100%;
+
+      --image-width: 100%;
+      --image-height: 200px;
+
+      --content-padding: 8px;
+    }
+  }
+}
+

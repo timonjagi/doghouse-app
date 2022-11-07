@@ -1,0 +1,57 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-grid {
+  padding: 0;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item.item {
+  --ion-color-base: var(--ion-color-white-tint);
+
+  &.item-input {
+    --border-color: var(--ion-color-light-shade);
+    --border-width: 1px;
+    --border-style: solid;
+    --border-radius: 4px;
+  }
+}
+
+ion-select {
+  max-width: 100%;
+  width: 100%;
+}
+
+.marker {
+  background-image: url("/assets/img/dot.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 24px;
+  width: 24px;
+}
+
+.autocomplete {
+  position: relative;
+
+  ion-list, ion-item {
+    background: var(--ion-color-white-tint);
+    --background: var(--ion-color-white-tint);
+  }
+
+  ion-list {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 8px;
+    position: absolute;
+    top: 50px;
+    z-index: 10;
+  }
+}

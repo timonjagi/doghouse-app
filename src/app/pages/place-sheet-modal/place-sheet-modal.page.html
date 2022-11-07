@@ -1,0 +1,25 @@
+<ion-content>
+  <ion-list>
+    <ion-item style="--background:transparent" button lines="none" detail="false" (click)="onPlaceTouched(place)" *ngFor="let place of places">
+      <ion-thumbnail slot="start" *ngIf="place.imageThumb">
+        <img [src]="place.imageThumb?._url" src-fallback="./assets/img/placeholder.png" />
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+
+        <h2 class="bold no-margin multi-ellipsis link">
+          <ion-text color="dark">
+            {{ place.title }}
+          </ion-text>
+        </h2>
+        <ion-text color="medium">
+          <p class="bold no-margin">
+            {{ place.categories.join(' &bull; ') }}
+          </p>
+        </ion-text>
+        <bar-rating class="rating" *ngIf="place.ratingAvg" [rate]="place.rating" [readOnly]="true" [max]="5"
+          [theme]="'stars'"></bar-rating>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

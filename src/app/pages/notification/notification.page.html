@@ -1,0 +1,19 @@
+<ion-content>
+  <div class="container-bg">
+    <div class="bg-img" *ngIf="notification.image_url" [lazyLoad]="notification.image_url"></div>
+    <img *ngIf="!notification.image_url" width="250" src="./assets/img/logo-2.png">
+  </div>
+
+
+  <div class="card ion-padding">
+    <h2>{{ notification.title }}</h2>
+    <p>{{ notification.body }}</p>
+    <ion-button strong (click)="onShowMoreButtonTouched()" color="secondary" *ngIf="canShowMoreButton" expand="block"
+      shape="round">
+      {{ 'VIEW_MORE' | translate }}
+    </ion-button>
+    <ion-button strong (click)="onCloseButtonTouched()" color="light" expand="block" shape="round">
+      {{ 'CLOSE' | translate }}
+    </ion-button>
+  </div>
+</ion-content>

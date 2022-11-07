@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="preference.currentTab"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="bold">
+      <span *ngIf="params?.place?.title">
+        {{ params.place.title }} - {{ 'REVIEWS' | translate }}
+      </span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" #container>
+
+  <ion-refresher slot="fixed" (ionRefresh)="onReload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-xs="12" size-lg="8">
+
+        <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_REVIEWS' | translate">
+        </empty-view>
+
+        <empty-view *ngIf="isEmptyViewVisible" icon="star" [text]="'EMPTY_REVIEWS' | translate">
+        </empty-view>
+
+        <section *ngIf="isLoadingViewVisible">
+          <ion-item lines="none" color="white" detail="false" class="radius ion-margin-bottom"
+            *ngFor="let item of skeletonReviews">
+            <ion-avatar slot="start">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+        </section>
+
+        <ion-list lines="none" [@staggerIn]="reviews.length" *ngIf="isContentViewVisible">
+          <ion-item detail="false" class="radius ion-align-items-start ion-margin-bottom" color="white"
+            *ngFor="let review of reviews">
+
+            <ion-avatar class="ion-margin-top" slot="start">
+              <img [offset]="100" defaultImage="./assets/img/avatar.png" [lazyLoad]="review.user?.photo?.url()" />
+            </ion-avatar>
+
+            <ion-label class="ion-text-wrap">
+              <ion-text color="medium" class="float-end">
+                <span class="text-small">
+                  {{ review.createdAt | date:'mediumDate' }}
+                </span>
+              </ion-text>
+              <ion-text color="dark">
+                <h3 class="bold no-margin">
+                  {{ review.user?.name || ('GUEST' | translate) }}
+                </h3>
+              </ion-text>
+
+              <bar-rating class="rating" [rate]="review.rating" [readOnly]="true" [max]="5" [theme]="'stars'">
+              </bar-rating>
+
+              <ion-text color="dark">
+                <p class="text-medium no-margin">{{ review.comment }}</p>
+              </ion-text>
+            </ion-label>
+
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll *ngIf="isContentViewVisible" (ionInfinite)="onLoadMore($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+
+</ion-content>

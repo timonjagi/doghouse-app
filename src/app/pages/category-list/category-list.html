@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="bold">{{ 'CATEGORIES' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #container>
+
+  <ion-refresher slot="fixed" (ionRefresh)="onReload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid fixed>
+
+    <div class="ion-text-center ion-padding-vertical" *ngIf="isLoadingViewVisible">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+    </empty-view>
+
+    <empty-view *ngIf="isEmptyViewVisible" icon="bookmark" [text]="'EMPTY_DATA' | translate">
+    </empty-view>
+
+    <div *ngIf="isContentViewVisible">
+
+      <!-- Top Slide List -->
+
+      <div *ngIf="slidesTop?.length">
+        <swiper (swiper)="onSwiperTopInitialized($event)" [config]="slideTopOpts">
+          <ng-template swiperSlide *ngFor="let slide of slidesTop">
+            <div class="ion-activatable full-width" (click)="onSlideTouched(slide)">
+              <div class="slide-img" [style.background-image]="'url(' + slide.image?._url + ')'">
+              </div>
+              <ion-ripple-effect type="bounded"></ion-ripple-effect>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+
+      <div class="ion-margin-vertical ion-padding-horizontal">
+        <ion-item class="text-medium" lines="none" color="white">
+          <ion-input #txtSearchInput (keyup)="onSubmitSearch($event)" enterkeyhint="search" type="text"
+            [placeholder]="'SEARCH_HOME_PLACEHOLDER' | translate">
+          </ion-input>
+          <ion-button class="btn-search ion-no-margin" fill="clear" color="primary" slot="end"
+            (click)="onSubmitSearch($event)">
+            <ion-icon slot="icon-only" color="medium" name="search"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+
+      <ion-row>
+        <ion-col class="column-center" size-xs="4" size-sm="4" size-md="3" size-lg="3"
+          *ngFor="let category of categories">
+          <ion-card button class="transparent no-shadow" [routerLink]="[pathPrefix + 'places']"
+            [queryParams]="{ cat: category.id }">
+            <img [offset]="100" defaultImage="./assets/img/placeholder.png" [lazyLoad]="category.image?.url()"
+              [alt]="category.title" />
+            <ion-card-content class="ion-text-center">
+              <h2 class="bold link ion-no-margin multi-ellipsis">
+                {{ category.title }}
+              </h2>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </ion-grid>
+
+  <div class="ion-margin-vertical" *ngIf="slidesBottom?.length">
+    <swiper (swiper)="onSwiperBottomInitialized($event)" [config]="slideBottomOpts">
+      <ng-template swiperSlide *ngFor="let slide of slidesBottom">
+        <div class="ion-activatable full-width" (click)="onSlideTouched(slide)">
+          <div class="slide-img" style="height: 100px;" [style.background-image]="'url(' + slide.image?._url + ')'">
+          </div>
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+
+</ion-content>

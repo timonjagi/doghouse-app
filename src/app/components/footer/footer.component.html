@@ -1,0 +1,40 @@
+<footer fixed>
+  <div>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <div class="buttons">
+          <ion-button fill="clear" color="light" target="_blank" *ngIf="facebook" (click)="openUrl(facebook)">
+            <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="light" target="_blank" *ngIf="instagram" (click)="openUrl(instagram)">
+            <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="light" target="_blank" *ngIf="whatsapp" (click)="openUrl(whatsapp)">
+            <ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="light" target="_blank" *ngIf="email" (click)="openUrl('mailto:' + email)">
+            <ion-icon slot="icon-only" name="mail"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="light" target="_blank" *ngIf="phone" (click)="openUrl('tel:' + phone)">
+            <ion-icon slot="icon-only" name="call"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="flex ion-justify-content-center ion-align-items-center">
+          <a target="_blank" [href]="appStoreUrl" *ngIf="appStoreUrl">
+            <img width="130" [src]="'./assets/img/app-store-badge-' + preference.lang + '.svg'" alt="App Store">
+          </a>
+          <a target="_blank" [href]="googlePlayUrl" *ngIf="googlePlayUrl">
+            <img width="160" [src]="'./assets/img/google-play-badge-' + preference.lang + '.png'" alt="Play Store">
+          </a>
+        </div>
+
+        <img alt="Logo" width="60" src="./assets/img/logo-1.png">
+
+        <p class="text-medium" style="margin-bottom: 0;">
+          &copy; Copyright {{ year }} - {{ 'APP_NAME' | translate }} {{ 'COPYRIGHT' | translate }}
+        </p>
+        <br>
+      </ion-col>
+    </ion-row>
+  </div>
+</footer>

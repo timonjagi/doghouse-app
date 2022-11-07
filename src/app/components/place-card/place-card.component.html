@@ -1,0 +1,70 @@
+<ion-card button class="shadow ion-no-margin ion-margin-bottom">
+  <div class="bg-img" [offset]="100" defaultImage="./assets/img/placeholder.png" [lazyLoad]="place.image?.url()">
+    <ion-badge class="text-xs" mode="md" *ngIf="place.isFeatured" color="secondary">
+      {{ 'FEATURED_PLACE' | translate }}
+    </ion-badge>
+    <bar-rating *ngIf="place.ratingAvg" class="rating" [rate]="place.ratingAvg" [readOnly]="true" [max]="5"
+      [theme]="'stars'"></bar-rating>
+
+    <ion-chip *ngIf="showStatus" class="ion-no-margin text-small" [color]="getStatusColor(place.status)">
+      <span *ngIf="place.status === 'Pending Approval'">{{ 'PENDING_APPROVAL' | translate }}</span>
+      <span *ngIf="place.status === 'Pending'">{{ 'PENDING' | translate }}</span>
+      <span *ngIf="place.status === 'Rejected'">{{ 'REJECTED' | translate }}</span>
+      <span *ngIf="place.status === 'Approved'">{{ 'APPROVED' | translate }}</span>
+      <span *ngIf="place.status === 'Expired'">{{ 'EXPIRED' | translate }}</span>
+    </ion-chip>
+
+  </div>
+  <ion-card-content>
+    <div class="ion-text-nowrap">
+      <ion-text color="dark">
+        <h2 class="bold ellipsis text-medium">{{ place.title }}</h2>
+      </ion-text>
+      <p class="ellipsis text-small">
+        <ion-text color="medium">
+          <span>{{ place.categories.join(' &bull; ') }}</span>&nbsp;
+        </ion-text>
+      </p>
+      <p class="text-small bold">
+        <ion-text>
+
+          <span *ngIf="extraParams.location">
+            {{ place.distance(extraParams.location, extraParams.unit) }}&nbsp;
+            <span *ngIf="place.priceRange">&bull;</span>
+          </span>
+          <span>
+            {{ place.priceRange }}&nbsp;
+          </span>
+        </ion-text>
+      </p>
+
+      <ion-row class="ion-no-padding">
+        <ion-col class="ion-text-end">
+          <ion-button class="ion-no-margin" fill="clear" color="secondary" size="small"
+            *ngIf="showStatsButton && place.status === 'Approved'"
+            (click)="onStatsButtonTouched(); $event.stopPropagation();">
+            <ion-icon slot="icon-only" name="stats-chart">
+            </ion-icon>
+          </ion-button>
+          <ion-button class="ion-no-margin" fill="clear" color="success" size="small"
+            *ngIf="showPromoteButton && place.status === 'Approved' && !place.isFeatured"
+            (click)="onPromoteButtonTouchedFn(); $event.stopPropagation();">
+            <ion-icon slot="icon-only" name="arrow-up-circle"></ion-icon>
+          </ion-button>
+          <ion-button class="ion-no-margin" fill="clear" color="medium" size="small"
+            *ngIf="showEditButton && place.status === 'Approved'"
+            (click)="onEditPlaceTouched(); $event.stopPropagation();">
+            <ion-icon slot="icon-only" name="create">
+            </ion-icon>
+          </ion-button>
+          <ion-button class="ion-no-margin" fill="clear" color="danger" size="small" *ngIf="showDeleteButton"
+            (click)="onDeletePlaceTouched(); $event.stopPropagation();">
+            <ion-icon slot="icon-only" name="trash-outline">
+            </ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </div>
+  </ion-card-content>
+</ion-card>

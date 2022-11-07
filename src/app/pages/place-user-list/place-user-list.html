@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary" fixed>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/1/profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="bold">
+      {{ 'MY_PLACES' | translate }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="onReload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" *ngIf="!isLoadingViewVisible">
+    <ion-button shape="round" strong color="secondary" [routerLink]="['./add']">
+      {{ 'ADD_PLACE' | translate }}
+      <ion-icon slot="start" name="add"></ion-icon>
+    </ion-button>
+  </ion-fab>
+
+  <ion-grid fixed>
+
+    <ion-row *ngIf="isLoadingViewVisible">
+      <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" *ngFor="let item of skeletonArray">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+
+    <empty-view *ngIf="isErrorViewVisible" icon="alert-circle-outline" [text]="'ERROR_NETWORK' | translate">
+    </empty-view>
+  
+    <empty-view *ngIf="isEmptyViewVisible" icon="location" [text]="'EMPTY_USER_PLACES' | translate">
+    </empty-view>
+
+    <div class="ion-padding" *ngIf="isContentViewVisible">
+      <ion-row [@staggerIn]="places.length">
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" *ngFor="let place of places">
+          <app-place-card (click)="onPlaceTouched(place)" (onPromoteButtonTouched)="onPromoteButtonTouched($event)"
+            [place]="place"
+            [showStatus]="true"
+            [extraParams]="params"
+            [showPromoteButton]="isPromotedListingsEnabled"
+            [showStatsButton]="true"
+            [showEditButton]="true"
+            (onEditEvent)="onEditPlaceTouched($event)"
+            [showDeleteButton]="true"
+            (onDeleteEvent)="onDeletePlaceTouched($event)"
+            (onStatsEvent)="onStatsButtonTouched($event)">
+          </app-place-card>
+        </ion-col>
+      </ion-row>
+    </div>
+   
+  </ion-grid>
+
+  <ion-infinite-scroll *ngIf="isContentViewVisible" (ionInfinite)="onLoadMore($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <app-footer class="hide-xs-up show-lg-up"></app-footer>
+
+</ion-content>

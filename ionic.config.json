@@ -1,0 +1,7 @@
+{
+  "name": "Nearme",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
