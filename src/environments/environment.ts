@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
   serverUrl: 'https://api.doghouse.co.ke/api',
-  appUrl: 'https://doghouse.co.ke',
-  appImageUrl: 'https://trynearme.app/assets/img/nearme.png',
+  appUrl: 'https://app.doghouse.co.ke',
+  appImageUrl: 'https://app.doghouse.co.ke/assets/img/doghouse.png',
   appId: 'iea7ZQzb08ou6DWA',
   fbId: 'YOUR_FB_ID',
   googleMapsApiKey: 'AIzaSyC4ukfKNaJ8Zbj5HIhHzFWIdbzCE6EGw34',
