@@ -1,49 +1,70 @@
 // http://ionicframework.com/docs/theming/
-@import "~@ionic/angular/css/core.css";
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
-@import "~@ionic/angular/css/display.css";
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
 @import '~ngx-sharebuttons/themes/default';
 
-@import "~ngx-bar-rating/themes/br-stars-theme";
+@import '~ngx-bar-rating/themes/br-stars-theme';
 
-@import "swiper/scss";
-@import "swiper/scss/pagination";
-@import "swiper/scss/navigation";
+@import 'swiper/scss';
+@import 'swiper/scss/pagination';
+@import 'swiper/scss/navigation';
 
-@import "~@ionic/angular/css/ionic-swiper";
+@import '~@ionic/angular/css/ionic-swiper';
 
 @font-face {
-  font-family: "Quicksand";
-  src: url("./assets/fonts/Quicksand-Regular.ttf");
+  font-family: 'Quicksand';
+  src: url('./assets/fonts/Quicksand-Regular.ttf');
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Quicksand";
-  src: url("./assets/fonts/Quicksand-Bold.ttf");
+  font-family: 'Quicksand';
+  src: url('./assets/fonts/Quicksand-Bold.ttf');
   font-weight: bold;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Cairo";
-  src: url("./assets/fonts/Cairo-SemiBold.ttf");
+  font-family: 'Cairo';
+  src: url('./assets/fonts/Cairo-SemiBold.ttf');
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Cairo";
-  src: url("./assets/fonts/Cairo-Bold.ttf");
+  font-family: 'Cairo';
+  src: url('./assets/fonts/Cairo-Bold.ttf');
   font-weight: bold;
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF-Pro';
+  src: url('./assets/fonts/SFPRODISPLAYREGULAR.OTF');
+  font-weight: 400;
+  font-style: 'normal';
+}
+
+@font-face {
+  font-family: 'SF-Pro';
+  src: url('./assets/fonts/SFPRODISPLAYMEDIUM.OTF');
+  font-weight: 500;
+  font-style: 'normal';
+}
+
+@font-face {
+  font-family: 'SF-Pro';
+  src: url('./assets/fonts/SFPRODISPLAYBOLD.OTF');
+  font-weight: 700;
+  font-style: 'normal';
 }
 
 hr {
@@ -55,7 +76,10 @@ ion-grid {
 }
 
 .plt-mobile {
-  app-profile, app-post-list, app-category-list, app-home {
+  app-profile,
+  app-post-list,
+  app-category-list,
+  app-home {
     ion-content {
       --padding-bottom: 100px !important;
     }
@@ -726,10 +750,9 @@ ion-searchbar.text-medium {
 }
 
 .select-popover {
-
   ion-item {
     --border-color: var(--ion-color-light-tint);
-  
+
     ion-checkbox {
       --background-checked: var(--ion-color-success);
       --border-color-checked: var(--ion-color-success);
@@ -745,7 +768,7 @@ ion-searchbar.text-medium {
         font-weight: bold;
       }
     }
-  
+
     ion-radio {
       --color-checked: var(--ion-color-secondary);
     }
@@ -758,7 +781,7 @@ ion-searchbar.text-medium {
   }
 
   .item-radio-checked {
-    --background: rgba(var(--ion-color-light-rgb), 1.0);
+    --background: rgba(var(--ion-color-light-rgb), 1);
     font-weight: bold;
   }
 }
@@ -776,7 +799,7 @@ ion-modal empty-view {
 
 ion-alert {
   .alert-wrapper {
-    .select-interface-option[aria-checked="true"] .alert-checkbox-icon {
+    .select-interface-option[aria-checked='true'] .alert-checkbox-icon {
       background-color: var(--ion-color-secondary);
       border-color: var(--ion-color-medium);
     }

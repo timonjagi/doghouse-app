@@ -430,7 +430,7 @@ export class PlaceSavePage extends BasePage {
     if (formData.youtube !== 'https://' && formData.youtube !== '') {
       place.youtube = formData.youtube;
     }
-   
+
     place.whatsapp = formData.whatsapp;
 
     place.image = this.mainUpload;

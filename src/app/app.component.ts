@@ -31,7 +31,13 @@ import { NotificationPage } from './pages/notification/notification.page';
   templateUrl: './app.component.html'
 })
 export class AppComponent extends BasePage {
-
+  public appPages = [
+    { title: 'Home', url: '/home', icon: 'information-circle' },
+    { title: 'Categories', url: '/home', icon: 'information-circle' },
+    { title: 'Explore', url: '/explore', icon: 'briefcase' },
+    { title: 'News', url: '/news', icon: 'star' },
+    { title: 'Profile', url: '/profile', icon: 'person' },
+  ];
   constructor(injector: Injector,
     private storage: LocalStorage,
     private userService: User,
