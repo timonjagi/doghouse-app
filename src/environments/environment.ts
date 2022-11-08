@@ -6,7 +6,7 @@ export const environment = {
   appId: 'iea7ZQzb08ou6DWA',
   fbId: 'YOUR_FB_ID',
   googleMapsApiKey: 'AIzaSyC4ukfKNaJ8Zbj5HIhHzFWIdbzCE6EGw34',
-  androidHeaderColor: '#d82c6b',
+  androidHeaderColor: '#785730',
   defaultUnit: 'mi',
   defaultLang: 'en',
   googleClientId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com',

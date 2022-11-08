@@ -1,9 +1,9 @@
 export const environment = {
   production: false,
-  serverUrl: 'https://nearmev5.quanlabs.com/api',
-  appUrl: 'https://trynearme.app',
-  appImageUrl: 'https://trynearme.app/assets/img/nearme.png',
-  appId: 'YOUR_APP_ID',
+  serverUrl: 'https://api.doghouse.co.ke/api',
+  appUrl: 'https://app.doghouse.co.ke',
+  appImageUrl: 'https://app.doghouse.co.ke/assets/img/doghouse.png',
+  appId: 'iea7ZQzb08ou6DWA',
   fbId: 'YOUR_FB_ID',
   googleMapsApiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
   androidHeaderColor: '#d82c6b',
