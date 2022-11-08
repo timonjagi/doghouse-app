@@ -6,7 +6,7 @@ import { AuthGuard } from '../services/auth-guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: '1',
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -235,14 +235,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/1/home',
+        redirectTo: '/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/1/home',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
@@ -251,4 +251,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }
