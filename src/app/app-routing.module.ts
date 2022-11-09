@@ -26,6 +26,14 @@ const routes: Routes = [
     path: 'places/:id/:slug',
     loadChildren: () => import('./pages/place-detail/place-detail.module').then(m => m.PlaceDetailPageModule)
   },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: 'tos',
+    loadChildren: () => import('./pages/tos/tos.module').then( m => m.TosPageModule)
+  },
 ];
 
 @NgModule({
