@@ -9,7 +9,7 @@ export const environment = {
   androidHeaderColor: '#d82c6b',
   defaultUnit: 'mi',
   defaultLang: 'en',
-  googleClientId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com',
+  googleClientId: '512087167772-i1735r23fqemhthh2100cps982g0vqj2.apps.googleusercontent.com',
   oneSignal: {
     appId: 'YOUR_ONESIGNAL_APP_ID',
   },
